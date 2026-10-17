@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node
 
       - name: Выполнить команды
-        uses: |
+        run: |
           npm ci
           npm run lint
 
@@ -34,7 +34,7 @@ jobs:
         uses: actions/setup-node
 
       - name: Выполнить команды
-        uses: |
+        run: |
           npm ci
           npm run typecheck
   lint_backend:
@@ -50,10 +50,10 @@ jobs:
         with:                              
           python-version: "3.13"
       - name: Установка зависимотей
-        uses: pip install -r requirements-dev.txt
+        run: pip install -r requirements-dev.txt
 
       - name: Выполнить команды
-        uses: |
+        run: |
           ruff check .
           ruff format --check .
           
