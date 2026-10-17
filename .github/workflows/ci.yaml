@@ -161,6 +161,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5 
 
+      - name: Логин владельца в нижнем регистре
+        id: owner
+        run: echo "name=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
+
       - uses: docker/setup-buildx-action@v3 #включает BuildKit (нужен для кэша)
 
       - name: Логин в GHCR
