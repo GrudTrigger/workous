@@ -116,6 +116,7 @@ jobs:
 
       - name: Выполнить команды
         run: |
+          npm i vitest
           npm run test
 
 
