@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint_frontend:
+    name: Проверка кода frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v5
+
+      - name: Установка зависимотей
+        uses: actions/setup-node
+
+      - name: Выполнить команды
+        uses: |
+          npm ci
+          npm run lint
+
+  type_frontend:
+    name: Проверка типов frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v5
+
+      - name: Установка зависимотей
+        uses: actions/setup-node
+
+      - name: Выполнить команды
+        uses: |
+          npm ci
+          npm run typecheck
+  lint_backend:
+    name: Проверка кода backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v5
+
+      - name: Поставить Python
+        uses: actions/setup-python@v6
+        with:                              
+          python-version: "3.13"
+      - name: Установка зависимотей
+        uses: pip install -r requirements-dev.txt
+
+      - name: Выполнить команды
+        uses: |
+          ruff check .
+          ruff format --check .
+          
