@@ -72,4 +72,52 @@ jobs:
         run: |
           ruff check .
           ruff format --check .
+
+  test_backend:
+    name: Тесты backend
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v5
+
+      - name: Поставить Python
+        uses: actions/setup-python@v6
+        with:                              
+          python-version: "3.13"
+      - name: Установка зависимотей
+        run: pip install -r requirements-dev.txt
+
+      - name: Выполнить команды
+        run: |
+          pytest
+          
+  test_frontend:
+    name: Тесты frontend
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v5
+
+      - name: Забрать код
+        uses: actions/checkout@v5
+
+      - name: Установка зависимотей
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Выполнить команды
+        run: |
+          npm run test
+
+
+
           
